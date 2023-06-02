@@ -7,6 +7,11 @@ logger.setLevel("INFO")
 
 
 def load_settings(settings_file: str) -> dict:
+    """
+    Функция считывает файл настроек
+    :param settigs_file: название файла с настройками
+    :return: настройки
+    """
     settings = None
     try:
         with open(settings_file) as json_file:
@@ -18,6 +23,11 @@ def load_settings(settings_file: str) -> dict:
 
 
 def load_text(file_name: str) -> str:
+    """
+    Функция считывает текстовый файл
+    :param file_name: путь к файлу
+    :return: текст из файла
+    """
     try:
         with open(file_name, mode="r") as text_file:
             text = text_file.read()
@@ -28,6 +38,12 @@ def load_text(file_name: str) -> str:
 
 
 def write_text(text: str, file_name: str) -> None:
+    """
+    Функция записывает текст в файл
+    :param text: текст
+    :param file_path: путь к файлу
+    :return: None
+    """
     try:
         with open(file_name, mode="w") as text_file:
             text_file.write(text)
@@ -37,6 +53,11 @@ def write_text(text: str, file_name: str) -> None:
 
 
 def load_statistics(file_name: str) -> dict:
+    """
+    Функция считывает файл с данными
+    :param file_name: путь к файлу
+    :return: данные из файла
+    """
     statistics = {}
     try:
         with open(file_name, mode="r") as text_file:
@@ -51,6 +72,13 @@ def load_statistics(file_name: str) -> dict:
 
 
 def add_statistics(pools: int, time: float, file_name: str) -> None:
+    """
+    Функция записывает данные в файл
+    :param pools: количество процессов
+    :param time: время работы
+    :param file_name: путь к файлу
+    :return: None
+    """
     try:
         with open(file_name, mode="a") as text_file:
             text_file.write(f"{pools} {time}\n")

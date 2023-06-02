@@ -7,6 +7,12 @@ logger.setLevel("INFO")
 
 
 def visualize_statistics(statistics: dict, visual_directory: str) -> None:
+    """
+    Функция создает график по данным
+    :param statistics: данные для построения
+    :param visual_directory: путь к папке
+    :return: None
+    """
     fig = plt.figure(figsize=(40, 30))
     plt.rcParams["font.size"] = "30"
     plt.ylabel("Время работы, с", fontsize=24)
