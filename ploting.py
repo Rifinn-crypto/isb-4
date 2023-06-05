@@ -6,19 +6,19 @@ logger = logging.getLogger()
 logger.setLevel("INFO")
 
 
-def visualize_statistics(statistics: dict, visual_directory: str) -> None:
+def visualize_statistics(statistics: dict, settings: dict) -> None:
     """
     Функция создает график по данным
     :param statistics: данные для построения
-    :param visual_directory: путь к папке
+    :param settings: входные данные
     :return: None
     """
-    fig = plt.figure(figsize=(40, 30))
+    plt.figure(figsize=(18, 9))
     plt.rcParams["font.size"] = "30"
-    plt.ylabel("Время работы, с", fontsize=24)
-    plt.xlabel("Количество процессов", fontsize=24)
-    plt.title("График зависимости времени от количества процессов", fontsize=60)
+    plt.ylabel("Time, s")
+    plt.xlabel("Processes")
+    plt.title("Statistics")
     pools, work_times = statistics.keys(), statistics.values()
     plt.bar(pools, work_times, color="purple", width=0.8)
-    plt.savefig(os.path.join(visual_directory, "statistics.png"))
-    logging.info(f'График сохранен в папку "{visual_directory}"')
+    plt.savefig(settings['stat'])
+    logging.info(f'График сохранен')

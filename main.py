@@ -34,15 +34,24 @@ if __name__ == "__main__":
                 add_statistics(args.enumeration, t1 - t0, settings["statistics_file"])
             if card_number:
                 logging.info(f"Номер карты был найден: {card_number} ({t1 - t0} секунд потребовалось)")
-                write_text(card_number, settings["card_number_file"])
+                data = {}
+                data["card_number"] = f"{card_number}"
+                data["luhn_check"] = "no result"
+                write_text(data, settings["card_number_file"])
             else:
-                logging.info("Номер карты не был найден")
+                logging.error("Номер карты не был найден")
         elif args.visualization:
             statistics = load_statistics(settings["statistics_file"])
-            visualize_statistics(statistics, settings["visual_directory"])
+            visualize_statistics(statistics, settings)
         else:
             card_number = load_text(settings["card_number_file"])
+            data = {}
             if algorithm_luhn(card_number):
                 logging.info(f"Номер карты {card_number} корректен")
+                data["card_number"] = f"{card_number}"
+                data["luhn_check"] = "true"
             else:
-                logging.info(f"Номер карты {card_number} не корректен")
+                logging.error(f"Номер карты {card_number} не корректен")
+                data["card_number"] = f"{card_number}"
+                data["luhn_check"] = "false"
+                write_text(data, settings["card_number_file"])

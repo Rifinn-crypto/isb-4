@@ -9,7 +9,7 @@ logger.setLevel("INFO")
 def load_settings(settings_file: str) -> dict:
     """
     Функция считывает файл настроек
-    :param settigs_file: название файла с настройками
+    :param settings_file: название файла с настройками
     :return: настройки
     """
     settings = None
@@ -29,24 +29,25 @@ def load_text(file_name: str) -> str:
     :return: текст из файла
     """
     try:
-        with open(file_name, mode="r") as text_file:
-            text = text_file.read()
+        with open(file_name) as f:
+            data = json.load(f)
+            number = str(data["card_number"])
         logging.info(f'Файл "{file_name}" прочитан')
     except OSError as err:
         logging.warning(f'Ошибка при чтении файла "{file_name}"\n"{err}"')
-    return text
+    return number
 
 
-def write_text(text: str, file_name: str) -> None:
+def write_text(text: dict, file_name: str) -> None:
     """
     Функция записывает текст в файл
     :param text: текст
-    :param file_path: путь к файлу
+    :param file_name: путь к файлу
     :return: None
     """
     try:
         with open(file_name, mode="w") as text_file:
-            text_file.write(text)
+            json.dump(text, text_file)
         logging.info(f'Текст записан в файл "{file_name}"')
     except OSError as err:
         logging.warning(f'Ошибка при записи в файл "{file_name}"\n"{err}"')
